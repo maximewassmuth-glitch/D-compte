@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pour Deborah 🌹</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+```
+body {
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  background: #000;
+}
+
+/* ── Slideshow ── */
+#slideshow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.4s ease-in-out;
+}
+.slide.active { opacity: 1; }
+
+/* Dark romantic / sensual ambiance - candles, roses, red silk */
+.slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=1600&q=80'); }
+.slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=1600&q=80'); }
+.slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1548094990-c16ca90f1f0d?w=1600&q=80'); }
+.slide:nth-child(4) { background-image: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1600&q=80'); }
+.slide:nth-child(5) { background-image: url('https://images.unsplash.com/photo-1490750967868-88df5691cc48?w=1600&q=80'); }
+.slide:nth-child(6) { background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80'); }
+
+/* Deep dark overlay with red tint */
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.6) 0%,
+    rgba(60,0,0,0.45) 50%,
+    rgba(0,0,0,0.7) 100%
+  );
+  z-index: 1;
+}
+
+/* Subtle red vignette */
+#vignette {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(80,0,0,0.6) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── Main content ── */
+#content {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+}
+
+/* ── Label ── */
+#label {
+  background: rgba(0,0,0,0.88);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: clamp(13px, 2vw, 20px);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 20px 40px;
+  border-radius: 4px;
+  text-align: center;
+  line-height: 1.6;
+  max-width: 88vw;
+  border-top: 2px solid #8b0000;
+  border-bottom: 2px solid #8b0000;
+}
+
+#label .name {
+  display: block;
+  font-size: clamp(16px, 2.6vw, 26px);
+  color: #ff6b6b;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+
+#label .kiss {
+  display: block;
+  font-size: clamp(11px, 1.6vw, 16px);
+  color: #ccc;
+  font-weight: normal;
+  margin-top: 8px;
+  font-style: italic;
+  text-transform: none;
+}
+
+/* ── Countdown row ── */
+#countdown-row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+/* warning icon pulse */
+.warning-icon {
+  font-size: 54px;
+  animation: pulse 1.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px #ff4444);
+  line-height: 1;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1);    }
+  50%       { transform: scale(1.5); }
+}
+
+/* countdown box */
+#timer {
+  background: rgba(0,0,0,0.85);
+  border: 2px solid #8b0000;
+  border-radius: 8px;
+  padding: 22px 36px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  box-shadow: 0 0 30px rgba(139,0,0,0.4), inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.digits {
+  font-family: Arial, sans-serif;
+  font-size: clamp(38px, 7vw, 74px);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(255,100,100,0.4);
+}
+
+.unit-label {
+  font-family: Arial, sans-serif;
+  font-size: clamp(9px, 1.3vw, 12px);
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-top: 6px;
+}
+
+.sep {
+  font-family: Arial, sans-serif;
+  font-size: clamp(38px, 7vw, 74px);
+  font-weight: 900;
+  color: #8b0000;
+  line-height: 1;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Floating rose petals */
+.petal {
+  position: fixed;
+  font-size: 20px;
+  opacity: 0;
+  animation: fall linear infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+@keyframes fall {
+  0%   { transform: translateY(-40px) rotate(0deg);   opacity: 0; }
+  10%  { opacity: 0.7; }
+  90%  { opacity: 0.4; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+#expired {
+  display: none;
+  font-family: Arial, sans-serif;
+  font-size: clamp(20px, 3.5vw, 36px);
+  color: #ff4444;
+  font-weight: bold;
+  text-align: center;
+  animation: flash 0.8s step-end infinite;
+}
+@keyframes flash { 50% { opacity: 0.3; } }
+```
+
+  </style>
+</head>
+<body>
+
+  <!-- Slideshow -->
+
+  <div id="slideshow">
+    <div class="slide active"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+  </div>
+
+  <div id="overlay"></div>
+  <div id="vignette"></div>
+
+  <!-- Floating petals -->
+
+  <div id="petals"></div>
+
+  <!-- Content -->
+
+  <div id="content">
+    <div id="label">
+      <span class="name">🌹 Deborah, mi esposa 🌹</span>
+      temps restant avant approbation automatique des règles
+      <span class="kiss">bisous 💋</span>
+    </div>
+
+```
+<div id="countdown-row">
+  <span class="warning-icon">⚠️</span>
+
+  <div id="timer">
+    <div class="unit">
+      <span class="digits" id="hh">48</span>
+      <span class="unit-label">heures</span>
+    </div>
+    <span class="sep">:</span>
+    <div class="unit">
+      <span class="digits" id="mm">00</span>
+      <span class="unit-label">minutes</span>
+    </div>
+    <span class="sep">:</span>
+    <div class="unit">
+      <span class="digits" id="ss">00</span>
+      <span class="unit-label">secondes</span>
+    </div>
+  </div>
+
+  <span class="warning-icon" style="animation-delay:0.7s">⚠️</span>
+</div>
+
+<div id="expired">✅ RÈGLES APPROUVÉES AUTOMATIQUEMENT 💋</div>
+```
+
+  </div>
+
+  <script>
+    // ── Slideshow ──────────────────────────────────────────────
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 4500);
+
+    // ── Floating petals ────────────────────────────────────────
+    const petalsContainer = document.getElementById('petals');
+    const petalEmojis = ['🌹','🥀','❤️','💋','🌸'];
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.fontSize = (14 + Math.random() * 18) + 'px';
+      const dur = 7 + Math.random() * 10;
+      p.style.animationDuration = dur + 's';
+      p.style.animationDelay = (Math.random() * 12) + 's';
+      petalsContainer.appendChild(p);
+    }
+
+    // ── Countdown — date fixe : 29 mars 2026 à 18h00 GMT+1 ────
+    // 18h00 GMT+1 = 17h00 UTC → timestamp UTC en ms
+    const endTime = Date.UTC(2026, 2, 29, 17, 0, 0); // mois 2 = mars (0-indexé)
+
+    const hh = document.getElementById('hh');
+    const mm = document.getElementById('mm');
+    const ss = document.getElementById('ss');
+    const timer = document.getElementById('timer');
+    const expired = document.getElementById('expired');
+
+    function pad(n) { return String(Math.max(0, n)).padStart(2, '0'); }
+
+    function tick() {
+      const remaining = endTime - Date.now();
+      if (remaining <= 0) {
+        timer.style.display = 'none';
+        document.querySelectorAll('.warning-icon').forEach(w => w.style.display = 'none');
+        expired.style.display = 'block';
+        return;
+      }
+      const totalSec = Math.floor(remaining / 1000);
+      hh.textContent = pad(Math.floor(totalSec / 3600));
+      mm.textContent = pad(Math.floor((totalSec % 3600) / 60));
+      ss.textContent = pad(totalSec % 60);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  </script>
+
+</body>
+</html>
